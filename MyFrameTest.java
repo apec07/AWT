@@ -10,7 +10,7 @@ public class MyFrameTest extends Frame implements ActionListener{
 	private TextArea inputField;
 	private StringBuffer message;
 	
-	//Contructor
+	//Constructor
 	public MyFrameTest(String name){
 		this.name = name;
 		message = new StringBuffer();
@@ -50,11 +50,11 @@ public class MyFrameTest extends Frame implements ActionListener{
 				 	return;
 				 }
 				System.out.println(message);
-				JOptionPane.showMessageDialog(null, "Saved...\n"+message);
 				try{
 					saveText("text.txt");
 					clearText();
 				}catch(IOException ex){
+				  JOptionPane.showMessageDialog(null, "Oops....Not Saved\n"+message);
 					ex.printStackTrace();
 				}
 				
@@ -78,6 +78,7 @@ public class MyFrameTest extends Frame implements ActionListener{
 			fw.write(message+"\n");
 			fw.flush();
 			fw.close();
+			JOptionPane.showMessageDialog(null, "Saved...\n"+message);
 	}
 	private void clearText(){
 		inputField.setText("");
