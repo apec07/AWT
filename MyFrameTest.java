@@ -1,6 +1,7 @@
 import java.awt.*;
+import java.awt.event.*;
 
-public class MyFrameTest extends Frame {
+public class MyFrameTest extends Frame implements ActionListener {
 	
 	private String name;
 	
@@ -9,6 +10,17 @@ public class MyFrameTest extends Frame {
 		this.name = name;
 		setLocation(10,10);
 		setSize(200,300);
+		Panel pan = new Panel();
+			Button clearBtn = new Button ("Exit");	
+			clearBtn.addActionListener (this);	
+			pan.add (clearBtn);					
+			add (pan, BorderLayout.NORTH);
+	}
+	//overwrited ActionListener method
+	public void actionPerformed (ActionEvent e) {
+		setVisible (false);
+	  dispose();
+	  //System.exit (0);
 	}
 	
 	//Start here
