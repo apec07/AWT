@@ -3,22 +3,24 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.JOptionPane;
 
-public class MyFrameTest extends Frame implements ActionListener {
+public class MyFrameTest extends Frame implements ActionListener{
 	
 	private String name;
 	private Button saveBtn,exitBtn;
-	private TextField inputField;
-	private String message;
+	private TextArea inputField;
+	private StringBuffer message;
 	
 	//Contructor
 	public MyFrameTest(String name){
 		this.name = name;
+		message = new StringBuffer();
 		setLocation(10,10);
 		setSize(200,300);
 		setLayout (new GridLayout(3,1));	
 		//Panel pan = new Panel();
-		  inputField = new TextField();
-		  inputField.addActionListener (this);	
+		  inputField = new TextArea();
+		  //inputField.addActionListener (this);	
+		  //inputField.addKeyListener (this);
 			exitBtn = new Button ("Exit");	
 			exitBtn.addActionListener (this);	
 			saveBtn = new Button ("Save");	
@@ -42,7 +44,7 @@ public class MyFrameTest extends Frame implements ActionListener {
 	  		dispose();
 	  		//System.exit (0);
 			} else if (e.getSource() == saveBtn) {
-				 message = inputField.getText();
+				 message.append(inputField.getText());
 				 if(message.length()==0){
 				 	JOptionPane.showMessageDialog(null, "Please type any words!");   
 				 	return;
@@ -57,11 +59,20 @@ public class MyFrameTest extends Frame implements ActionListener {
 				}
 				
 			} else{
-			  //To enter on textField will cause here!!
-				System.err.println("Not defiend");
+			  System.err.println("Not defiend "+ e.getSource());
 			}
 		
 	}
+	/**
+	public void keyPressed(KeyEvent e) {}
+	public void keyReleased(KeyEvent e) {}
+	public void keyTyped(KeyEvent e){
+		if(e.getKeyChar()== KeyEvent.VK_ENTER){
+			System.out.println("Enter");
+				message.append("\n");
+		}
+	}
+	*/
 	private void saveText(String pathName) throws IOException {
 			FileWriter fw = new FileWriter(pathName,true);
 			fw.write(message+"\n");
@@ -70,6 +81,7 @@ public class MyFrameTest extends Frame implements ActionListener {
 	}
 	private void clearText(){
 		inputField.setText("");
+		message.delete(0,message.length());
 	}
 	
 	//Start here
