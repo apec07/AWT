@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import javax.swing.JOptionPane;
 
 public class MyFrameTest extends Frame implements ActionListener {
@@ -7,6 +8,7 @@ public class MyFrameTest extends Frame implements ActionListener {
 	private String name;
 	private Button saveBtn,exitBtn;
 	private TextField inputField;
+	private String message;
 	
 	//Contructor
 	public MyFrameTest(String name){
@@ -16,7 +18,6 @@ public class MyFrameTest extends Frame implements ActionListener {
 		setLayout (new GridLayout(3,1));	
 		//Panel pan = new Panel();
 		  inputField = new TextField();
-		  inputField.setText("Please type in here");
 		  inputField.addActionListener (this);	
 			exitBtn = new Button ("Exit");	
 			exitBtn.addActionListener (this);	
@@ -41,12 +42,34 @@ public class MyFrameTest extends Frame implements ActionListener {
 	  		dispose();
 	  		//System.exit (0);
 			} else if (e.getSource() == saveBtn) {
-				JOptionPane.showMessageDialog(null, "Saved...");  
-				//saveText();
+				 message = inputField.getText();
+				 if(message.length()==0){
+				 	JOptionPane.showMessageDialog(null, "Please type any words!");   
+				 	return;
+				 }
+				System.out.println(message);
+				JOptionPane.showMessageDialog(null, "Saved...\n"+message);
+				try{
+					saveText("text.txt");
+					clearText();
+				}catch(IOException ex){
+					ex.printStackTrace();
+				}
+				
 			} else{
+			  //To enter on textField will cause here!!
 				System.err.println("Not defiend");
 			}
 		
+	}
+	private void saveText(String pathName) throws IOException {
+			FileWriter fw = new FileWriter(pathName,true);
+			fw.write(message+"\n");
+			fw.flush();
+			fw.close();
+	}
+	private void clearText(){
+		inputField.setText("");
 	}
 	
 	//Start here
