@@ -35,7 +35,7 @@ public class MyFrameTest extends Frame implements ActionListener{
 			if (e.getSource() == exitBtn){
 				//JOptionPane.showMessageDialog(null, "Exit");
 				int option =JOptionPane.showConfirmDialog(null, "Really Exit?", "Exit", JOptionPane.YES_NO_OPTION);
-				System.out.println(option);
+				System.out.println((option==1)?"Keep":"Exit");
 				if(option==1){
 					//Do NOT EXIT!
 					return;
