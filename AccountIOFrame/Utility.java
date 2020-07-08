@@ -1,14 +1,14 @@
-// Utility for 
+// Utility for UserAccount
 import java.io.*;
 import java.util.*;
 
 public class Utility {
 
-	public static boolean writeToFile (String pathName,List myList){
+	public static boolean writeToFile (String pathName,UserAccount account){
 		try {
 		FileOutputStream fos = new FileOutputStream (pathName);
 		ObjectOutputStream oos = new ObjectOutputStream (fos);
-		oos.writeObject (myList);
+		oos.writeObject (account);
 		oos.flush();
 		oos.close();
 		fos.close();
@@ -20,12 +20,12 @@ public class Utility {
 		return true;
 	}
 	
-	public static List readFromList(String pathName){
-		List myList;
+	public static UserAccount readFromAccount(String pathName){
+		UserAccount account;
 		try {
 		FileInputStream fis = new FileInputStream (pathName);
 		ObjectInputStream ois = new ObjectInputStream (fis);
-		myList = (List)(ois.readObject());
+		account = (UserAccount)(ois.readObject());
 		ois.close();
 		fis.close();
 		} catch (IOException ex) {
@@ -35,7 +35,7 @@ public class Utility {
 	  System.err.println ("Trouble Casing - "+ex);
 		return null;
 		}
-		return myList;
+		return account;
 	}
 
 

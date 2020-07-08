@@ -47,7 +47,17 @@ public class LoginPage extends JFrame implements ActionListener {
 			
 			if(e.getSource()==btnOk){
 				System.out.println("Click OK");
-			  JOptionPane.showMessageDialog(null, "Loading account...");
+				//System.out.println(texts[0].getText()+texts[1].getText());
+				//Read Data
+				
+				UserAccount account = new UserAccount();
+				account.setName(texts[0].getText());
+				account.setPassword(texts[1].getText());
+				System.out.println(account);
+			  JOptionPane.showMessageDialog(null, "Saved account...");
+			  //Save Data (overwrited!)
+			  Utility.writeToFile("data.txt",account);
+			  
 			}else if(e.getSource()==btnClear){
 				System.out.println("Click Clear");
 				texts[0].setText(" "); //not work...if no space why?

@@ -1,5 +1,8 @@
 
-public class userAccount{
+
+import java.io.*;
+
+public class UserAccount implements Serializable{
 	
 	private String accountName;
 	private String accountPassword;
