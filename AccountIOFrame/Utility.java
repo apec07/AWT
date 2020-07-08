@@ -1,10 +1,10 @@
-// Utility for UserAccount
+// Utility for Account
 import java.io.*;
 import java.util.*;
 
 public class Utility {
 
-	public static boolean writeToFile (String pathName,UserAccount account){
+	public static boolean writeToFile (String pathName,Account account){
 		try {
 		FileOutputStream fos = new FileOutputStream (pathName);
 		ObjectOutputStream oos = new ObjectOutputStream (fos);
@@ -20,12 +20,12 @@ public class Utility {
 		return true;
 	}
 	
-	public static UserAccount readFromAccount(String pathName){
-		UserAccount account;
+	public static Account readFromAccount(String pathName){
+		Account account;
 		try {
 		FileInputStream fis = new FileInputStream (pathName);
 		ObjectInputStream ois = new ObjectInputStream (fis);
-		account = (UserAccount)(ois.readObject());
+		account = (Account)(ois.readObject());
 		ois.close();
 		fis.close();
 		} catch (IOException ex) {
@@ -38,5 +38,6 @@ public class Utility {
 		return account;
 	}
 
+	
 
 }

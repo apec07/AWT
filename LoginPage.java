@@ -50,8 +50,8 @@ public class LoginPage extends JFrame implements ActionListener {
 				//System.out.println(texts[0].getText()+texts[1].getText());
 				//Read Data
 				
-				UserAccount account = new UserAccount();
-				account.setName(texts[0].getText());
+				Account account = new Account();
+				account.setUser(texts[0].getText());
 				account.setPassword(texts[1].getText());
 				System.out.println(account);
 			  JOptionPane.showMessageDialog(null, "Saved account...");
