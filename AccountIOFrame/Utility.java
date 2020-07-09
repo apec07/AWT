@@ -50,8 +50,8 @@ public class Utility {
 	
 	public static Account readFromMySQL(){
 		Account account = new Account();
-		String user;
-		String password;
+		String user="";
+		String password="";
 		 try {
         		Properties prop = new Properties();
             prop.load(new FileInputStream("JDBC.properties"));
@@ -84,40 +84,30 @@ public class Utility {
 	}
 	
 	public static int WriteToMySQL(Account account){
-		
+		int updateNum;
 		String user = account.getUser();
 		String password = account.getPassword();
 		if (user==null || user.trim().length()==0){
 			return 0;
 		}
 		
+		String sqlUrl = "INSERT INTO ACCOUNT (USER,PASSWORD) VALUES ("+user+","+password+");";
 		
 		try {
         		Properties prop = new Properties();
             prop.load(new FileInputStream("JDBC.properties"));
             Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/db_morgan?"+"autoReconnect=true&useSSL=false", prop);
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeUpdate("INSERT INTO ACCOUNT (USER,PASSWORD) VALUES (%s, %s);",user,password);
-
-            while (rs.next()) {
-                int str1 = rs.getInt(1);
-                String str2 = rs.getString(2);
-                String str3 = rs.getString(3);
-
-                System.out.print(" _ID= " + str1);
-                System.out.print(" User= " + str2);
-                System.out.print(" Password= " + str3);
-                System.out.print("\n");
-            }
-
-            rs.close();
+            updateNum = stmt.executeUpdate(sqlUrl);
+         
             stmt.close();
             con.close();
 
         } catch (Exception ex) {
             System.err.println("SQLException: " + ex.getMessage());
+            return 0;
         }
-		
+		return updateNum;
 	}
 
 }
