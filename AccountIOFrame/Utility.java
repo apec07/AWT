@@ -39,13 +39,15 @@ public class Utility {
 		return account;
 	}
 
-	public static void MySQLConnect(){
+	public static boolean MySQLConnect(){
 		 try {
             Class.forName("com.mysql.jdbc.Driver"); 
         } catch (java.lang.ClassNotFoundException e) {
             System.err.print("ClassNotFoundException: ");
             System.err.println(e.getMessage());
+            return false;
         }
+        return true;
 	}
 	
 	public static Account readFromMySQL(){
@@ -87,11 +89,13 @@ public class Utility {
 		int updateNum;
 		String user = account.getUser();
 		String password = account.getPassword();
+		System.out.println("WriteToMySQL "+ account);
 		if (user==null || user.trim().length()==0){
+			System.out.println("WriteToMySQL return");
 			return 0;
 		}
 		
-		String sqlUrl = "INSERT INTO ACCOUNT (USER,PASSWORD) VALUES ("+user+","+password+");";
+		String sqlUrl = "INSERT INTO ACCOUNT (USER,PASSWORD) VALUES (\""+user+"\",\""+password+"\");";
 		
 		try {
         		Properties prop = new Properties();

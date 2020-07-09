@@ -55,7 +55,8 @@ public class RegisterPage extends JFrame implements ActionListener {
 				System.out.println(account);
 			 
 			  //Connect to MySQL
-			  Utility.MySQLConnect();
+			  boolean isConnect = Utility.MySQLConnect();
+			  System.out.println("isConnect = "+isConnect);
 			  //Write to MySQL
 			  int result = Utility.WriteToMySQL(account);
 			  System.out.println("result = "+result);
@@ -71,6 +72,6 @@ public class RegisterPage extends JFrame implements ActionListener {
 		}
 		
 		public static void main(String args[]){
-			new LoginPage("Register Page");
+			new RegisterPage("Register Page");
 		}
 }
