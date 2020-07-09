@@ -1,14 +1,14 @@
 /*
-SQL syntax
-//Create Table    
+# SQL syntax
+# Create Table    
 CREATE TABLE IF NOT EXISTS ACCOUNT (
 ID INT NOT NULL AUTO_INCREMENT,
-USER varchar(50) NOT NULL,
+USER varchar(50) NOT NULL UNIQUE,
 PASSWORD varchar(50) NOT NULL,
 PRIMARY KEY ( ID ));
 
 
-//Insert DATA into Table account
+# Insert DATA into Table account
 INSERT INTO ACCOUNT 
 (USER,PASSWORD) 
 VALUES ("account1", "myPassword1");
@@ -17,20 +17,17 @@ INSERT INTO ACCOUNT
 (USER,PASSWORD) 
 VALUES ("account2", "myPassword2");
 
-//Query DATA
+# Query DATA
 select * from account;
 
-//Delete DATA!
+# Delete DATA!
 DELETE FROM account 
-//where clause
+# where clause
 DELETE FROM account where user = "account1";
 DELETE FROM account where user = "account2";
 
-//Drop Table
+# Drop Table
 Drop Table Account;
-
-
-
 
 
 */
@@ -40,7 +37,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class MySQLConnect {
+class MySQLConnect {
 
     public static void main(String argv[]) {
         try {

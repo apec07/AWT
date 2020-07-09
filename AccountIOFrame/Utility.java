@@ -1,6 +1,7 @@
 // Utility for Account
 import java.io.*;
 import java.util.*;
+import java.sql.*;
 
 public class Utility {
 
@@ -38,6 +39,85 @@ public class Utility {
 		return account;
 	}
 
+	public static void MySQLConnect(){
+		 try {
+            Class.forName("com.mysql.jdbc.Driver"); 
+        } catch (java.lang.ClassNotFoundException e) {
+            System.err.print("ClassNotFoundException: ");
+            System.err.println(e.getMessage());
+        }
+	}
 	
+	public static Account readFromMySQL(){
+		Account account = new Account();
+		String user;
+		String password;
+		 try {
+        		Properties prop = new Properties();
+            prop.load(new FileInputStream("JDBC.properties"));
+            Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/db_morgan?"+"autoReconnect=true&useSSL=false", prop);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * from account");
+
+            while (rs.next()) {
+                int _id = rs.getInt(1);
+                user = rs.getString(2);
+                password = rs.getString(3);
+
+                System.out.print(" _ID= " + _id);
+                System.out.print(" User= " + user);
+                System.out.print(" Password= " + password);
+                System.out.print("\n");
+            }
+
+            rs.close();
+            stmt.close();
+            con.close();
+
+        } catch (Exception ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+            return null;
+        }
+        account.setUser(user);
+        account.setPassword(password);
+        return account;
+	}
+	
+	public static int WriteToMySQL(Account account){
+		
+		String user = account.getUser();
+		String password = account.getPassword();
+		if (user==null || user.trim().length()==0){
+			return 0;
+		}
+		
+		
+		try {
+        		Properties prop = new Properties();
+            prop.load(new FileInputStream("JDBC.properties"));
+            Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/db_morgan?"+"autoReconnect=true&useSSL=false", prop);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeUpdate("INSERT INTO ACCOUNT (USER,PASSWORD) VALUES (%s, %s);",user,password);
+
+            while (rs.next()) {
+                int str1 = rs.getInt(1);
+                String str2 = rs.getString(2);
+                String str3 = rs.getString(3);
+
+                System.out.print(" _ID= " + str1);
+                System.out.print(" User= " + str2);
+                System.out.print(" Password= " + str3);
+                System.out.print("\n");
+            }
+
+            rs.close();
+            stmt.close();
+            con.close();
+
+        } catch (Exception ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+		
+	}
 
 }
